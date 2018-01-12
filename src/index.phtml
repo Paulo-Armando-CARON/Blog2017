@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Encore un Blog ?! #nonMaisAllo</title>
+
+    <!-- Feuilles de style externes -->
+    <link rel="stylesheet" href="css/blog-main.css">
+    <link rel="stylesheet" href="css/blog-theme.css">
+    <link rel="stylesheet" href="css/ui-button.css">
+    <link rel="stylesheet" href="css/ui-form.css">
+
+    <link rel="stylesheet" href="css/normalize-3.0.3.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+
+    <!-- Feuilles de style de l'application -->
+
+    <!--
+    <script>
+        function test(inputs) {
+            inputs.forEach((v, k) => {
+                if(k > 0){
+                inputs[0].checked ? v.checked = true :v.checked = false
+            }
+        });
+        }
+    </script>
+    -->
+</head>
+<body>
+<!-- En-tête commune de l'application -->
+<header class="blog-header">
+    <h1><a href="index.php"><i class="fa fa-microphone"></i> Encore un Blog ?! #nonMaisAllo</a></h1>
+    <nav>
+        <a href="admin.php"><i class="fa fa-cogs"></i> Administration</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Chargement du template PHTML spécifié par le programme PHP -->
+    <!-- Page d'accueil -->
+    <h2><i class="fa fa-home"></i> Accueil</h2>
+
+    <!-- Liste des articles du blog
+    <ul class="post-list">
+        <li class="post">
+            <h3>
+                <i class="fa fa-hand-o-right"></i>&nbsp;
+                <!-- Lien vers article de blog détaillé avec les commentaires -->
+                <a href="show_post.php?id=11" title="Consulter l'article">
+                     </a>
+
+
+    <table>
+
+        <?php
+        while ($donnees = $req->fetch())
+        {
+            ?>
+            <ul class="post-list">
+                 <li class="post">
+                     <h3>
+                       <i class="fa fa-hand-o-right"></i>&nbsp;
+                         <a href="show_post.php?id=<?= $donnees['id_art'] ?>" title="Consulter l'article"> <?php echo $donnees['title'] ?> </a>
+                     </h3>
+                     <article> <?php echo substr($donnees['content'], 0, 80) ,' [...]' ?> </article>
+                     <small> <?php echo 'Rédigé par ', $donnees['id_name'] ,' ',  $donnees['id_lastName'] ,' ' ,'le', ' ', $donnees['date'] ?> </small>
+
+                  </li>
+            </ul>
+
+         <?php
+        }
+        ?>
+
+
+
+
+
+    </table>
+</main>
+
+<!-- Pied de page commun de l'application -->
+<footer class="blog-footer">
+    <small>Le blog des élèves de la 3W Academy</small>
+</footer>
+</body>
+</html>

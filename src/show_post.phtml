@@ -1,0 +1,128 @@
+<!-- Page d'article de blog détaillé avec les commentaires -->
+<h2><i class="fa fa-file-text-o"></i> Article</h2>
+
+<!-- Article du blog -->
+
+<!-- Liste des commentaires de l'article du blog -->
+
+<!-- Formulaire de saisie d'un nouveau commentaire pour cet article -->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Encore un Blog ?! #nonMaisAllo</title>
+
+    <link rel="stylesheet" href="css/blog-main.css">
+    <link rel="stylesheet" href="css/blog-theme.css">
+    <link rel="stylesheet" href="css/ui-button.css">
+    <link rel="stylesheet" href="css/ui-form.css">
+
+    <!-- Feuilles de style externes -->
+    <link rel="stylesheet" href="css/normalize-3.0.3.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+
+    <!-- Feuilles de style de l'application -->
+
+
+    <!--
+    <script>
+        function test(inputs) {
+            inputs.forEach((v, k) => {
+                if(k > 0){
+                inputs[0].checked ? v.checked = true :v.checked = false
+            }
+        });
+        }
+    </script>
+    -->
+
+</head>
+<body>
+<!-- En-tête commune de l'application -->
+<header class="blog-header">
+    <h1><a href="index.php"><i class="fa fa-microphone"></i> Encore un Blog ?! #nonMaisAllo</a></h1>
+    <nav>
+        <a href="admin.php"><i class="fa fa-cogs"></i> Administration</a>
+    </nav>
+</header>
+
+<main>
+    <!-- Chargement du template PHTML spécifié par le programme PHP -->
+    <!-- Page d'article de blog détaillé avec les commentaires -->
+    <h2><i class="fa fa-file-text-o"></i> Article</h2>
+
+    <!-- Article du blog -->
+    <section class="post">
+
+
+
+
+
+
+       <?php
+        if (is_array($donnees)){ ?>
+       <h3> <?php echo $donnees['title'] ?> </h3>
+        <article> <?php echo $donnees['content'] ?> </article>
+        <small> <?php echo 'Rédigé par ', $donnees['id_name'], ' ', $donnees['id_lastName'], ' ', 'le', ' ', $donnees['date'] ?>  </small>
+       <?php }else echo"N'existe pas";
+        ?>
+
+    </section>
+
+    <hr>
+
+    <!-- Liste des commentaires de l'article du blog -->
+
+
+
+
+
+    <?php
+    $reponse= $pdo->prepare
+    ('SELECT * FROM `table_commentaire` WHERE `id_art` = ?');
+    $reponse->execute(array($_GET['id']));
+
+    $commentaires = $reponse->fetchAll();
+    forEach ($commentaires as $commentaire){
+    echo '<h4><i class="fa fa-comment"></i> Rédigé par ', $commentaire['pseudo'],'</h4>';
+   echo '<article>', nl2br($commentaire['text']), '</article>';
+
+    }
+    ?>
+
+<hr>
+
+    <!-- Formulaire de saisie d'un nouveau commentaire pour cet article -->
+    <form class="generic-form" action="add_comment.php" method="POST">
+
+        <!-- Utilisation d'un champ caché pour spécifier à quel article rattacher le commentaire -->
+        <input type="hidden" name="id_art" value="<?= $_GET['id'] ?>">
+
+        <fieldset>
+            <legend><i class="fa fa-comment-o"></i> Nouveau commentaire</legend>
+            <ul>
+                <li>
+                    <label for="nickName">Pseudo :</label>
+                    <input type="text" id="nickName" name="pseudo">
+                </li>
+                <li>
+                    <label class="textarea" for="contents">Commentaire :</label>
+                    <textarea id="contents" name="text" rows="5"></textarea>
+                </li>
+                <li>
+                    <button class="button button-primary" type="submit">Ajouter</button>
+                    <a class="button button-cancel" href="index.php">Annuler</a>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+</main>
+
+<!-- Pied de page commun de l'application -->
+<footer class="blog-footer">
+    <small>Le blog des élèves de la 3W Academy</small>
+</footer>
+</body>
+</html>
